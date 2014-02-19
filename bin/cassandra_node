@@ -26,15 +26,20 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
   #
   # @returns options populated with the Cassandra Properties taken from cassandra_node.yml
   def additional_config(options, config)
-    options[:hostname] = parse_property(config, "host", String)
+    options[:hostname] = parse_property(config, "hostname", String)
     options[:runtime_path] = parse_property(config, "runtime_path", String)
     options[:port_range] = parse_property(config, "port_range", Range)
     options[:ssl_port_range] = parse_property(config, "ssl_port_range", Range)
     options[:jmx_port_range] = parse_property(config, "jmx_port_range", Range)
     options[:rpc_port_range] = parse_property(config, "rpc_port_range", Range)
+    options[:transport_port_range] = parse_property(config, "transport_port_range", Range)
     options[:supported_versions] = parse_property(config, "supported_versions", Array)
     options[:default_version] = parse_property(config, "default_version", String)
     options[:instance_limit] = parse_property(config, "instance_limit", Integer)
+    options[:seeds] = parse_property(config, "seeds", String)
+    options[:clustername] = parse_property(config, "clustername", String)
+    options[:max_heap_size] = parse_property(config, "max_heap_size", String)
+    options[:heap_newsize] = parse_property(config, "heap_newsize", String)
     options
   end
 
