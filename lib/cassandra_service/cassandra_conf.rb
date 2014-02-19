@@ -35,7 +35,9 @@ class CassandraConfigurator
   end
 
   def write_cassandra_env
-    write_config("cassandra-env.sh", {:jmx_port => @instance.jmx_port})
+    write_config("cassandra-env.sh", {:jmx_port => @instance.jmx_port,
+                                      :max_heap_size => @instance.max_heap_size,
+                                      :heap_newsize => @instance.heap_newsize})
   end
 
   def write_rackdc
@@ -48,13 +50,17 @@ class CassandraConfigurator
 
   def write_cassandra_yaml
     write_config("cassandra.yaml",
-                 {:cluster_name => @instance.name,
+                 {:cluster_name => @instance.clustername,
                   :data_file_dir => "#@instance_dir/data",
                   :commit_log_dir => "#@instance_dir/commitlog",
                   :saved_caches_dir => "#@instance_dir/saved_caches",
+                  :conf_dir => "#@config_dir",
+                  :seeds => @instance.seeds,
                   :storage_port => @instance.storage_port,
                   :ssl_storage_port => @instance.ssl_storage_port,
-                  :host => @instance.hostname,
+                  :transport_port => @instance.transport_port,
+                  :listen_address => @instance.host_ip,
+                  :rpc_address => @instance.host_ip,
                   :rpc_port => @instance.rpc_port})
   end
 
